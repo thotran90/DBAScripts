@@ -1,0 +1,7 @@
+{
+    "DataFile": "D:\\MSSQLSERVER\\DATA",
+    "LogFile": "D:\\MSSQLSERVER\\LOG",
+    "BackupFile": "D:\\MSSQLSERVER\\Backup",
+    "TempDBFile": "D:\\MSSQLSERVER\\Tempdb\\data\\",
+    "TempDBLog": "D:\\MSSQLSERVER\\Tempdb\\log\\"
+  }
