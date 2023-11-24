@@ -2,9 +2,9 @@
 
 <#
 .SYNOPSIS
-    Perform database checklist base on Standard for Enterprise database instance
+    Perform database checklist base on Standard for MSSQL Server database instance
 .DESCRIPTION
-    Perform database checklist base on Standard for Enterprise database instance
+    Perform database checklist base on Standard for MSSQL Server database instance
 .NOTES
     Version: 1.0
 .LINK
@@ -16,12 +16,13 @@ param(
 )
 $ErrorActionPreference = 'STOP'
 $line = "=================================== Tho Tran ====================================="
-$scriptName = (Split-Path -Leaf $PSCommandPath).Replace('.ps1','')
+$scriptName = (Split-Path -Leaf $PSCommandPath).Replace('.ps1', '')
 
 $start = Get-Date
-if(!$InstallingLogDir){
+if (!$InstallingLogDir) {
     $InstallingLogDir = "$PSScriptRoot\$scriptName-$($start.ToString('s').Replace(':','-')).log"
-}else{
+}
+else {
     $InstallingLogDir = "$InstallingLogDir$scriptName-$($start.ToString('s').Replace(':','-')).log"
 }
 Write-Host "Installing log: $InstallingLogDir"
@@ -38,8 +39,12 @@ Write-Host $config | ConvertFrom-Json
 $dbInstance = (Invoke-Sqlcmd -ServerInstance "localhost" -Query "select @@SERVICENAME as ServiceName").ServiceName
 Write-Host "Database Instance: $dbInstance"
 
-## Step 1: Changing database default location
-Write-Host "Step 1: Changing database default location"
+## Check exist and create the needed folder
+
+
+
+## Changing database default location
+Write-Host "Changing database default location"
 $registryPath = "Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Microsoft SQL Server\*$dbInstance\MSSQLServer"
 
 Set-ItemProperty -Path $registryPath -Name "DefaultData" -Value $config.DataFile 
